@@ -1,7 +1,6 @@
 """
 
 """
-# import _pickle as pickle
 import logging
 
 import pyglet

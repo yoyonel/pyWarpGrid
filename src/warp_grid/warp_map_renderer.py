@@ -1,4 +1,5 @@
-import itertools
+"""
+"""
 from dataclasses import dataclass
 
 import pyglet

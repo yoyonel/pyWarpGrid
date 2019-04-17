@@ -99,6 +99,7 @@ class GameWindow(pyglet.window.Window):
             self.warpmap.relax(self.dt_for_physicx)
             self.remain_time_for_updating_physicx += self.dt_for_physicx
 
-    def quit_game(self):
+    @staticmethod
+    def quit_game():
         # http://nullege.com/codes/search/pyglet.app.exit
         pyglet.app.exit()

@@ -39,9 +39,9 @@ class WarpMapSimulation(object):
         stiffness = 5000. * 0.1
         damping = 100 * 0.1
 
-        def add_joint(a, b):
-            rl = a.position.get_distance(b.position) * 0.9
-            j = pymunk.DampedSpring(a, b, (0, 0), (0, 0),
+        def add_joint(body_a: Body, body_b: Body):
+            rl = body_a.position.get_distance(body_b.position) * 0.9
+            j = pymunk.DampedSpring(body_a, body_b, (0, 0), (0, 0),
                                     rl, stiffness, damping)
             j.max_bias = 1000
             self.space.add(j)
@@ -58,12 +58,12 @@ class WarpMapSimulation(object):
             len(self.space.constraints)))
 
         # ATTACH POINTS
-        def _static_point(b):
+        def _static_point(body: Body):
             static_body = pymunk.Body(body_type=pymunk.Body.STATIC)
-            static_body.position = b.position
+            static_body.position = body.position
             self.static_bs.append(static_body)
 
-            j = pymunk.PivotJoint(static_body, b, static_body.position)
+            j = pymunk.PivotJoint(static_body, body, static_body.position)
             j.damping = 100
             j.stiffness = 20000
             self.space.add(j)
