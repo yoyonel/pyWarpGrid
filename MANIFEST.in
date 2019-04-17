@@ -1,0 +1,10 @@
+graft src
+
+include README.md
+
+include tox.ini
+include requirements*.txt
+
+prune tests
+
+global-exclude *.py[cod] __pycache__ *.so *.dylib
