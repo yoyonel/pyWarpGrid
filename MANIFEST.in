@@ -5,6 +5,8 @@ include README.md
 include tox.ini
 include requirements*.txt
 
+include datas/cooling_map.png
+
 prune tests
 
 global-exclude *.py[cod] __pycache__ *.so *.dylib

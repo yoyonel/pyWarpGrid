@@ -19,6 +19,9 @@ ${SDIST_PACKAGE}: ${SOURCES}
 pip: requirements_dev.txt
 	@pip install -r requirements_dev.txt --upgrade
 
+demo:
+	@python src/warp_grid/app.py
+
 re: fclean all
 
 fclean:
