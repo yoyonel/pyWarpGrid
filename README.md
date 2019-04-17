@@ -1,2 +1,3 @@
 # pyWarpGrid
+<img src="http://cdn.onlinewebfonts.com/svg/img_448883.png" height="128">
 Warp Grid simulation using Python(3.x)+PyGlet+PyMunk+Cocos2d+PyOpenGL
