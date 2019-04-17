@@ -2,11 +2,13 @@
 
 """
 # import _pickle as pickle
+import logging
+
 import pyglet
 import pymunk
 
 from warp_grid.game_window import GameWindow
-from warp_grid.warp_map import WarpMapPyMunk
+from warp_grid.warp_map_renderer import WarpMapRenderer
 
 
 def main():
@@ -20,12 +22,13 @@ def main():
     )
 
     window = GameWindow(
-        WarpMapPyMunk(space, 13, 11),
-        1. / 100.,
+        WarpMapRenderer(space, 13, 11),
+        1. / 60.,
         space,
         config=config,
         caption='Fire - WarpMap',
         resizable=False, fullscreen=False, vsync=False,
+        record_simu=False,
     )
 
     # No limitation on display framerate
@@ -36,4 +39,8 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s - %(module)s - %(levelname)s - %(message)s'
+    )
     main()

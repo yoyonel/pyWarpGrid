@@ -5,8 +5,10 @@ from pyglet.window import FPSDisplay, key
 import pymunk
 from pymunk.vec2d import Vec2d
 
+from warp_grid.warp_map_recorder import WarpMapRecorder
 
 mouse_body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
+selected = None
 
 
 class GameWindow(pyglet.window.Window):
@@ -18,6 +20,7 @@ class GameWindow(pyglet.window.Window):
             warpmap,
             dt_for_physicx,
             space,
+            record_simu=False,
             *args, **kwargs
     ):
         super().__init__(*args, **kwargs)
@@ -31,19 +34,22 @@ class GameWindow(pyglet.window.Window):
         # framerate display
         self.fps = FPSDisplay(self)
 
-        ########################################################################
-        # self.record_filename = f"/tmp/warp#{4}hz#{self.warpmap.w}#{self.warpmap.h}#{self.warpmap.size}.pkl"
-        ########################################################################
+        # 4 Hz (because self.fps is set to 4hz update)
+        if record_simu:
+            self.recorder = WarpMapRecorder(
+                warpmap,
+                record_freq=int(1.0/FPSDisplay.update_period)
+            )
+        else:
+            self.recorder = None
 
     def on_draw(self):
         self.clear()
 
         ########################################################################
         # Record (dump pickle in file) Warp grid (animation)
-        # # 4 Hz
-        # if not self.fps.count:
-        #     with open(self.record_filename, "ab") as tmp_warp_file:
-        #         pickle.dump(self.warpmap.get_web_crossings(), tmp_warp_file)
+        if self.recorder is not None and not self.fps.count:
+            self.recorder.record()
         ########################################################################
 
         self.warpmap.draw_debug(draw_flag=True, draw_web_constraints=True)
